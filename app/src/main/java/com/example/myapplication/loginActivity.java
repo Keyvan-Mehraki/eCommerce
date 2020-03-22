@@ -143,7 +143,7 @@ private CheckBox chkBoxRememberMe;
 //                               Toast.makeText(loginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                loadingBar.dismiss();
 
-                               Intent intent = new Intent(loginActivity.this,AdminAddNewProductActivity.class);
+                               Intent intent = new Intent(loginActivity.this,AdminCategoryActivity.class);
                                startActivity(intent);
                            }
                            else if (parentDbname.equals("Users"))
