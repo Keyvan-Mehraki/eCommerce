@@ -105,10 +105,7 @@ private CheckBox chkBoxRememberMe;
             loadingBar.setMessage("Please wait, While we are checking the credentials...");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
-
             AllowAccessToAccount(phone , password);
-
-
         }
 
 
@@ -144,6 +141,8 @@ private CheckBox chkBoxRememberMe;
                                loadingBar.dismiss();
 
                                Intent intent = new Intent(loginActivity.this,AdminCategoryActivity.class);
+
+                               Prevalent.CurrentOnlineuser = userData; //Getting the ADMIN username for further purposes
                                startActivity(intent);
                            }
                            else if (parentDbname.equals("Users"))
@@ -152,6 +151,8 @@ private CheckBox chkBoxRememberMe;
                                loadingBar.dismiss();
 
                                Intent intent = new Intent(loginActivity.this,HomeActivity.class);
+
+                              Prevalent.CurrentOnlineuser = userData;  //Getting the username for further purposes
                                startActivity(intent);
                            }
                         }
@@ -174,7 +175,8 @@ private CheckBox chkBoxRememberMe;
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
 
             }
         });

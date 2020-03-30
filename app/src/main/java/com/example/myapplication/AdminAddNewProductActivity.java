@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myapplication.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,7 +40,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity
     private ImageView InputProductImage;
     private static final int GalleryPick=1;
     private Uri ImageUri;
-    private String productRandomKey, downloadImageUrl ;
+    private String productRandomKey, downloadImageUrl, currentAdmin ;
     private StorageReference ProductImagesRef;
     private DatabaseReference ProductsRef;
     private ProgressDialog loadingBar;
@@ -80,7 +81,6 @@ public class AdminAddNewProductActivity extends AppCompatActivity
                ValidateProductData();
            }
        });
-
 
     }
 
@@ -134,6 +134,8 @@ public class AdminAddNewProductActivity extends AppCompatActivity
         final StorageReference filepath = ProductImagesRef.child(ImageUri.getLastPathSegment()+productRandomKey+ ".jpg");
 
         final UploadTask uploadTask = filepath.putFile(ImageUri);
+
+        currentAdmin = Prevalent.CurrentOnlineuser.getName()+" "+Prevalent.CurrentOnlineuser.getPhone();
 
         uploadTask.addOnFailureListener(new OnFailureListener()
         {
@@ -195,6 +197,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity
         productMap.put("category", CategoryName);
         productMap.put("price", Price);
         productMap.put("pname", Pname);
+        productMap.put("Added by",currentAdmin);
 
         ProductsRef.child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>()
